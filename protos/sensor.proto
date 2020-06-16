@@ -1,0 +1,16 @@
+syntax = "proto3";
+package sensors;
+option go_package="sensorpb";
+
+
+message SensorRequest {
+}
+
+message SensorResponse {
+    int64 value = 1;
+}
+
+service Sensor{
+    rpc TempSensor(SensorRequest) returns (stream SensorResponse) {};
+	rpc HumiditySensor(SensorRequest) returns (stream SensorResponse) {}; 
+}
