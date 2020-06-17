@@ -18,7 +18,7 @@ type server struct {
 func (s *server) TempSensor(req *sensorpb.SensorRequest,
 	stream sensorpb.Sensor_TempSensorServer) error {
 	for {
-		time.Sleep(time.Second * 2)
+		time.Sleep(time.Second * 5)
 
 		temp := s.Sensor.GetTempSensor()
 		err := stream.Send(&sensorpb.SensorResponse{Value: temp})
