@@ -23,7 +23,7 @@ func NewSensor() *Sensor {
 func (s *Sensor) SetTempSensor() {
 	for {
 		s.M.Lock()
-		s.Data["temp"] = int64(rand.Int())
+		s.Data["temp"] = int64(rand.Intn(120))
 		s.M.Unlock()
 		time.Sleep(5 * time.Second)
 	}
@@ -32,7 +32,7 @@ func (s *Sensor) SetTempSensor() {
 func (s *Sensor) SetHumiditySensor() {
 	for {
 		s.M.Lock()
-		s.Data["humidity"] = int64(rand.Int())
+		s.Data["humidity"] = int64(rand.Intn(100))
 		s.M.Unlock()
 		time.Sleep(2 * time.Second)
 	}
