@@ -37,8 +37,8 @@ static_resources:
           - name: envoy.router
   clusters:
   - name: sensor_service
-    connect_timeout: 0.25s
+    connect_timeout: 50s
     type: logical_dns
     http2_protocol_options: {}
     lb_policy: round_robin
-    hosts: [{ socket_address: { address: host.docker.internal, port_value: 8080 }}]
+    hosts: [{ socket_address: { address: 172.17.0.1, port_value: 8080 }}]

@@ -3,7 +3,7 @@ services:
   proxy:
     build:
       context: ./envoy
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.macos
     ports:
       - "8000:8000"
   server:
