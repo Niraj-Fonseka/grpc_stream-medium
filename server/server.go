@@ -55,7 +55,7 @@ func main() {
 
 	sns.StartMonitoring()
 
-	addr := fmt.Sprintf("0.0.0.0:%d", port)
+	addr := fmt.Sprintf(":%d", port)
 
 	lis, err := net.Listen("tcp", addr)
 

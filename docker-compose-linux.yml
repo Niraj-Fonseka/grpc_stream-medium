@@ -1,0 +1,31 @@
+version: '3'
+services:
+  common-build-go-grpc:
+    build:
+      context: ./common-build/alpine
+      dockerfile: Dockerfile
+    image: common-grpc-alpine
+  proxy:
+    build:
+      context: ./envoy
+      dockerfile: Dockerfile.linux
+    ports:
+      - "8000:8000"
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - proxy
+  web-client:
+    build:
+      context: ./js-client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+      - proxy
+    tty: true
