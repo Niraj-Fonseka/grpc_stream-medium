@@ -20,7 +20,15 @@ function App() {
     stream.on('data', function(response){
         setTemp(response.getValue())
     });
-  };
+    stream.on('status', function(status) {
+        // see: https://grpc.github.io/grpc/core/md_doc_statuscodes.html
+        if (status.code > 0) {
+            console.log("restarting")
+            stream.cancel()
+            setTimeout(_ => getTemp(), 1000)
+        }
+    });
+  }
 
   const getHumidity = () => {
     var sensorRequest = new SensorRequest()
@@ -29,6 +37,12 @@ function App() {
     stream.on('data',function(response){
       setHumidity(response.getValue())
     })
+    stream.on('status', function(status) {
+        if (status.code > 0) {
+            stream.cancel()
+            setTimeout(_ => getHumidity(), 1000)
+        }
+    });
   }
 
   const detectTempAlert = () => {

@@ -18,13 +18,14 @@ type server struct {
 func (s *server) TempSensor(req *sensorpb.SensorRequest,
 	stream sensorpb.Sensor_TempSensorServer) error {
 	for {
-		time.Sleep(time.Second * 5)
-
 		temp := s.Sensor.GetTempSensor()
 		err := stream.Send(&sensorpb.SensorResponse{Value: temp})
 		if err != nil {
 			log.Println("Error sending metric message ", err)
+			return nil
 		}
+
+		time.Sleep(time.Second * 5)
 	}
 	return nil
 }
@@ -33,14 +34,15 @@ func (s *server) HumiditySensor(req *sensorpb.SensorRequest,
 	stream sensorpb.Sensor_HumiditySensorServer) error {
 
 	for {
-		time.Sleep(time.Second * 2)
-
 		humd := s.Sensor.GetHumiditySensor()
 
 		err := stream.Send(&sensorpb.SensorResponse{Value: humd})
 		if err != nil {
 			log.Println("Error sending metric message ", err)
+			return nil
 		}
+
+		time.Sleep(time.Second * 2)
 	}
 	return nil
 }
